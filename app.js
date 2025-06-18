@@ -2,8 +2,8 @@
 
 import { MARKETS, YEARS, GLOBAL_REPORTS, MARKET_REPORTS, RECEIPTS } from './data.js';
 
-// Authentication
-const CORRECT_PASSWORD_HASH = '5c898dbe0736c3b5439d13e1cb166428f299769b474880bb631eb8f9b7a98a1f'; // SHA-256 of "concur2025"
+// Authentication  
+const CORRECT_PASSWORD = 'concur2025';
 
 class ConcurApp {
   constructor() {
@@ -56,7 +56,7 @@ class ConcurApp {
   }
 
   // Authenticate user
-  async authenticate() {
+  authenticate() {
     const input = document.getElementById('auth-input');
     const errorDiv = document.getElementById('auth-error');
     const password = input.value.trim();
@@ -66,26 +66,14 @@ class ConcurApp {
       return;
     }
 
-    try {
-      // Hash the entered password
-      const encoder = new TextEncoder();
-      const data = encoder.encode(password);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-      if (hashHex === CORRECT_PASSWORD_HASH) {
-        this.isAuthenticated = true;
-        document.getElementById('auth-modal').style.display = 'none';
-        document.getElementById('app').classList.remove('hidden');
-        errorDiv.textContent = '';
-      } else {
-        errorDiv.textContent = 'Invalid access code';
-        input.value = '';
-      }
-    } catch (error) {
-      errorDiv.textContent = 'Authentication error occurred';
-      console.error('Auth error:', error);
+    if (password === CORRECT_PASSWORD) {
+      this.isAuthenticated = true;
+      document.getElementById('auth-modal').style.display = 'none';
+      document.getElementById('app').classList.remove('hidden');
+      errorDiv.textContent = '';
+    } else {
+      errorDiv.textContent = 'Invalid access code';
+      input.value = '';
     }
   }
 
