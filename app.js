@@ -3,7 +3,7 @@
 import { MARKETS, YEARS, GLOBAL_REPORTS, MARKET_REPORTS, RECEIPTS } from './data.js';
 
 // Authentication
-const CORRECT_PASSWORD_HASH = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // SHA-256 of "concur2025"
+const CORRECT_PASSWORD_HASH = '5c898dbe0736c3b5439d13e1cb166428f299769b474880bb631eb8f9b7a98a1f'; // SHA-256 of "concur2025"
 
 class ConcurApp {
   constructor() {
